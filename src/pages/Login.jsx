@@ -1,8 +1,10 @@
 import { useLoginUserMutation, useRegisterUserMutation } from "@/app/fetures/api/authApi.js";
 import { useToast } from "@/contexts/ToastContext";
 import React, { act, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate()
 
   const [registerUser, { data: registerData, isLoading: registerIsLoading, isSuccess: registerIsSuccess, status: registerStatus, error: registerError }] = useRegisterUserMutation()
   const [loginUser, { data: loginData, isError: loginIsError, isLoading: loginIsLoading, isSuccess: loginIsSuccess, error: loginError }] = useLoginUserMutation()
@@ -34,6 +36,7 @@ const Login = () => {
     await action(inputData)
 
 
+
   }
 
 
@@ -53,6 +56,8 @@ const Login = () => {
     if (registerData) {
       if (registerData?.status == 200) {
         addToast(registerData?.message, 'success')
+
+        setActiveTab('signin')
       }
     }
 
@@ -72,6 +77,7 @@ const Login = () => {
     if (loginData) {
       if (loginData?.status === 200) {
         addToast(loginData?.message, 'success')
+        navigate('/')
       }
     }
 
@@ -88,8 +94,6 @@ const Login = () => {
   }, [activeTab]
   )
 
-  console.log(loginError, 'this is the loginError')
-  console.log(loginData, 'this is the loginData')
 
 
   return (
@@ -98,7 +102,7 @@ const Login = () => {
         } transition-colors duration-1000`}
     >
       {/* Dark Mode Toggle */}
-      <div className="absolute top-4 right-4 ">
+      {/* <div className="absolute top-4 right-4 ">
         <button
           onClick={() => setDarkMode(!darkMode)}
           className={`p-2 rounded-full border border-black ${darkMode
@@ -108,7 +112,7 @@ const Login = () => {
         >
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
-      </div>
+      </div> */}
 
       {/* Form Container */}
       <div className="w-full max-w-md p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg">
@@ -131,7 +135,8 @@ const Login = () => {
               : "text-gray-500 dark:text-gray-400"
               }`}
           >
-            {loginIsLoading ? 'Please Wait' : ' Sign Up'}
+            {/* {loginIsLoading ? 'Please Wait' : ' Sign Up'} */}
+            Sign Up
           </button>
         </div>
 
@@ -144,7 +149,7 @@ const Login = () => {
             <h3 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Login With your Credentials</h3>
             {/* Sign In Form */}
             {activeTab === "signin" && (
-              <form name="signIn" typeof="signIn" onSubmit={(e) => handelSubmit(e, 'signIn')}>
+              <form name="signIn" onSubmit={(e) => handelSubmit(e, 'signIn')}>
                 <div className="mb-4">
                   <label
                     htmlFor="signin-email"
