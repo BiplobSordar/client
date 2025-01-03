@@ -7,11 +7,11 @@ export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8000/api/v1/user/',
-        
+
         credentials: 'include',
 
     }),
-    
+
     endpoints: (builder) => ({
         registerUser: builder.mutation({
             query: (signUpData) => ({
@@ -29,7 +29,7 @@ export const authApi = createApi({
                 method: 'POST',
                 body: signInData
             }),
-           
+
             async onQueryStarted(_, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled
@@ -64,18 +64,28 @@ export const authApi = createApi({
                 method: 'PUT',
                 body: formData,
                 credentials: 'include'
-            
+
 
             }),
 
-        })
-        ,
+        }),
+        updateRole: builder.mutation({
+            query: () => ({
+                url: '/profile/update_role',
+                method: 'PUT',
+               credentials: 'include'
+
+
+            }),
+
+        }),
+
         logoutUser: builder.mutation({
             query: () => ({
                 url: 'logout',
                 method: 'GET'
             }),
-            invalidatesTags:["USER"],
+            invalidatesTags: ["USER"],
             async onQueryStarted(_, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled
@@ -94,4 +104,4 @@ export const authApi = createApi({
 
 
 
-export const { useLoginUserMutation, useRegisterUserMutation, useLoadUserQuery, useLogoutUserMutation, useUpdateUserMutation } = authApi;
+export const { useLoginUserMutation, useRegisterUserMutation, useLoadUserQuery, useLogoutUserMutation, useUpdateUserMutation,useUpdateRoleMutation } = authApi;

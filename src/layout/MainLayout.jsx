@@ -1,8 +1,18 @@
 import Navbar from '@/components/Navbar'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const MainLayout = () => {
+    const navigate=useNavigate()
+    const { user, isAuthenticated } = useSelector(store => store.auth);
+         useEffect(()=>{
+            
+            if(user&& user.role!='student'){
+                navigate('/admin')
+            }
+            
+         },[])
     return (
         <div>
             <Navbar />

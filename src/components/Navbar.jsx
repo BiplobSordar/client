@@ -55,8 +55,8 @@ const Navbar = () => {
                     < button onClick={() => navigate('/courses')} className={`text-xl hover:text-blue-500 ${darkMode ? 'text-white' : 'text-gray-900'} transition duration-300`}>
                         Courses
                     </button>
-                    < button onClick={() => navigate('/admin')} className={`text-xl hover:text-blue-500 ${darkMode ? 'text-white' : 'text-gray-900'} transition duration-300`}>
-                       Admin
+                    < button onClick={() => navigate('/my-learning')} className={`text-xl hover:text-blue-500 ${darkMode ? 'text-white' : 'text-gray-900'} transition duration-300`}>
+                      MyLearning
                     </button>
 
                     {user ? <div className="relative">

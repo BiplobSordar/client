@@ -20,7 +20,7 @@ const Courses = () => {
 
   const editCourse = (id) => {
     // Implement edit course functionality here
-   navigate(`/admin/courses/${id}`)
+    navigate(`/admin/courses/${id}`)
   };
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Courses = () => {
           <tbody>
             {data?.courses.map(course => (
               <tr key={course.id} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{course.title}</td>
+                <td onClick={()=>(navigate(`/admin/courses/${course.id}/lecture`))} className="py-2 px-4 border-b cursor-pointer">{course.title}</td>
                 <td className="py-2 px-4 border-b">{`${course.courseprice} $`}</td>
                 {/* <td className="py-2 w-fit border rounded-md bg-green-300 px-4 border-b">{course.status}</td> */}
                 <td className="py-2 px-4 border-b w-fit"> <div className={`w-fit ${course.ispublished

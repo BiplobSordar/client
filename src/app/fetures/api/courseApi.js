@@ -9,7 +9,7 @@ export const courseApi = createApi({
     endpoints: (builder) => ({
         getCourses: builder.query({
             query: () => ({
-                url: '',
+                url: '/',
                 method: 'GET',
 
 
@@ -17,12 +17,34 @@ export const courseApi = createApi({
         }),
         createCourse: builder.mutation({
             query: (formData) => ({
-                url: '',
+                url: '/',
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
             })
         }),
+        getSearchCourse:builder.query({
+            query: ({searchQuery, categories, sortByPrice}) => {
+              // Build qiery string
+              let queryString = `/search?query=${encodeURIComponent(searchQuery)}`
+      
+              // append cateogry 
+              if(categories && categories.length > 0) {
+                const categoriesString = categories.map(encodeURIComponent).join(",");
+                queryString += `&categories=${categoriesString}`; 
+              }
+      
+              // Append sortByPrice is available
+              if(sortByPrice){
+                queryString += `&sortByPrice=${encodeURIComponent(sortByPrice)}`; 
+              }
+      
+              return {
+                url:queryString,
+                method:"GET", 
+              }
+            }
+          }),
         getCourseById: builder.query({
             query: (id) => ({
                 url: `/${id}`,
@@ -45,11 +67,24 @@ export const courseApi = createApi({
 
 
             })
+        }),
+        getPublishCourses: builder.query({
+            query: () => ({
+                url: '/publish',
+                method: 'GET'
+            })
+        }),
+        getMyLearningCourses:builder.query({
+            query:()=>({
+               url:'/my-learning' ,
+               method:'GET'
+            })
         })
-
     })
 
 
 })
 
-export const { useGetCoursesQuery, useCreateCourseMutation, useGetCourseByIdQuery, useEditCourseMutation,usePublishCourseMutation } = courseApi;
+export const { useGetCoursesQuery, useCreateCourseMutation, useGetCourseByIdQuery, useEditCourseMutation, usePublishCourseMutation, useGetPublishCoursesQuery,useGetSearchCourseQuery
+
+ ,useGetMyLearningCoursesQuery} = courseApi;

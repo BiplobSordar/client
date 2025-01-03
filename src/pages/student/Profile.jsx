@@ -1,4 +1,4 @@
-import { useLoadUserQuery, useUpdateUserMutation } from "@/app/fetures/api/authApi";
+import { useLoadUserQuery, useUpdateRoleMutation, useUpdateUserMutation } from "@/app/fetures/api/authApi";
 import React, { useEffect, useState } from "react";
 import defaultImage from "../../assets/user.png"
 import { useToast } from "@/contexts/ToastContext";
@@ -10,6 +10,7 @@ const Profile = () => {
   const navigate = useNavigate()
   const { data: userData, isLoading: userIsLoading, isSuccess: userIsSuccess, error: userError, refetch, isFetching: userIsFetching, currentData } = useLoadUserQuery()
   const [updateUser, { data: updateUserData, isSuccess: updateUserIsSuccess, isError: updateUserIsError, isLoading: updateUserIsLoading, error: updateUserError }] = useUpdateUserMutation()
+  const [updateRole,{data:updateRoleData,isLoading:updateRoleIsLoading,isError:updateRoleIsError,error:updateRoleError,isSuccess:updateRoleIsSuccess}]=useUpdateRoleMutation()
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [name, setName] = useState('')
   const [file, setFile] = useState('')
@@ -27,6 +28,9 @@ const Profile = () => {
     refetch()
   }, [])
 
+  const handleUpdateRole=async()=>{
+    await updateRole()
+  }
   const updateUserHandler = async (e) => {
     e.preventDefault()
 
@@ -50,6 +54,19 @@ const Profile = () => {
   }, [
     updateUserIsSuccess, updateUserIsError, refetch
   ])
+
+
+useEffect(()=>{
+  if(updateRoleData){
+
+    addToast(updateRoleData?.message,'success')
+    refetch()
+  }
+
+  if(updateRoleError){
+    addToast(updateRoleError?.message,'error')
+  }
+},[updateRoleData,updateRoleError])
 
 
 
@@ -89,6 +106,7 @@ const Profile = () => {
               <span className="mt-1 inline-block bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">
                 {userData?.user?.role.toUpperCase()}
               </span>
+
             </div>
             <button
               className="ml-auto bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
@@ -97,6 +115,8 @@ const Profile = () => {
               Edit
             </button>
           </div>
+          {userData?.user?.role!=='instructor' &&  <button onClick={handleUpdateRole} className="min-w-max bg-green-400 rounded-md text-white text-lg m-2 px-2 mt-5">Be A Instructor</button>}
+             
           <div className="mt-4">
             <h3 className="text-lg font-semibold text-gray-800">Skills</h3>
             <div className="flex flex-wrap gap-2 mt-2">

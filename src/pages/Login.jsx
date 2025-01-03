@@ -77,7 +77,12 @@ const Login = () => {
     if (loginData) {
       if (loginData?.status === 200) {
         addToast(loginData?.message, 'success')
-        navigate('/')
+        if(loginData.role=='instructor'){
+          navigate('/admin')
+        }else{
+
+          navigate('/')
+        }
       }
     }
 

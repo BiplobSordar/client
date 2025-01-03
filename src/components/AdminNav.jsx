@@ -44,9 +44,9 @@ const Navbar = () => {
     return (
         <nav className={`p-4 ${darkMode ? 'bg-gray-900' : 'bg-white'} shadow-md border-b border-gray-200 transition duration-500`}>
             <div className="container mx-auto flex items-center justify-between">
-                <div className="flex items-center">
-                    <AiOutlineBook className="text-3xl text-blue-500" />
-                    <span onClick={()=>navigate('/')} className={`ml-2 text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>E-Learning</span>
+                <div className="flex items-center cursor-pointer">
+                    <AiOutlineBook className="text-3xl text-blue-500 cursor-pointer" />
+                    <span onClick={()=>navigate('/admin')} className={`ml-2 text-2xl font-bold cursor-pointer ${darkMode ? 'text-white' : 'text-gray-900'}`}>E-Learning</span>
                 </div>
                 <div className="hidden  md:flex space-x-6 items-center">
                     <button onClick={() => navigate('/admin/dashboard')} className={`text-xl hover:text-blue-500 ${darkMode ? 'text-white' : 'text-gray-900'} transition duration-300`}>
@@ -62,8 +62,8 @@ const Navbar = () => {
                         </button>
                         {isOpen && (
                             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50">
-                                <button onClick={() => navigate('/profile')} className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300">My Profile</button>
-                                <button onClick={() => navigate('/settings')} className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300">Settings</button>
+                                <button onClick={() => navigate('/admin/profile')} className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300">My Profile</button>
+                                <button onClick={() => navigate('/admin/settings')} className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300">Settings</button>
                                 <button onClick={handelLogout} className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300">Logout</button>
                             </div>
                         )}
@@ -97,7 +97,7 @@ const Navbar = () => {
                 <button onClick={() => navigate('/admin/courses')} className={`block px-4 py-2 ${darkMode ? 'text-white' : 'text-gray-900'} hover:bg-gray-200 transition duration-300`}>
                     Courses
                 </button>
-                <button onClick={() => navigate('/profile')} className={`block px-4 py-2 ${darkMode ? 'text-white' : 'text-gray-900'} hover:bg-gray-200 transition duration-300`}>
+                <button onClick={() => navigate('/admin/profile')} className={`block px-4 py-2 ${darkMode ? 'text-white' : 'text-gray-900'} hover:bg-gray-200 transition duration-300`}>
                     Profile
                 </button>
                 <button onClick={toggleDarkMode} className={`block w-full text-left px-4 py-2 ${darkMode ? 'text-yellow-400' : 'text-gray-900'} hover:bg-gray-200 transition duration-300`}>
